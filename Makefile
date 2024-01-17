@@ -1,9 +1,13 @@
 obj-m += led_control.o
 
-KERNEL_VER=$(shell uname -r)
+CC=gcc
+
+KERNEL_REL=$(shell uname -r)
 
 all:
-	make -C /lib/modules/$(KERNEL_VER)/build M=$(PWD) modules
+	make -C /lib/modules/$(KERNEL_REL)/build M=$(PWD) modules
+	$(CC) main.c -o main
 
 clean:
-	make -C /lib/modules/$(KERNEL_VER)/build M=$(PWD) clean
+	make -C /lib/modules/$(KERNEL_REL)/build M=$(PWD) clean
+	rm -f main
